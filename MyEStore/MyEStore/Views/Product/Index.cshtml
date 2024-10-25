@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MyEStore.Models.HangHoaVM>
+
+@{
+	ViewData["Title"] = "Index";
+}
+<style>
+	.hh-box {
+		width: 220px;
+		height: 300px;
+		text-align: center;
+		display: inline-block; margin:5px;
+		border: 1px solid blue;
+		position:relative;
+	}
+	.hh-box-img{width:80%;height:80%;}
+	.hh-box-gia{position:absolute; left:5px; bottom: 5px; color: green; font-weight:bolder;}
+
+	.hh-box-name{position:absolute; width: 100%; top: 0; left: 0; color: red;}
+
+	.hh-box-mua {
+		position: absolute;
+	 right: 5px; bottom: 5px;}
+</style>
+<h1>Danh sách Hàng hóa</h1>
+<div>Có <span class="text-danger">@Model.Count()</span> hàng hóa</div>
+<div>
+	@foreach (var hh in Model)
+	{
+		<div class="hh-box">
+			<h3 class="hh-box-name">@hh.TenHh</h3>
+			<img src="~/Hinh/HangHoa/@hh.Hinh" alt="@hh.TenHh" class="hh-box-img" />
+			<div class="hh-box-gia">@hh.DonGia $</div>
+			<button class="btn btn-primary hh-box-mua">MUA</button>
+		</div>
+	}
+</div>
