@@ -11,3 +11,9 @@ Demo website TMĐT lớp 21bitv01
 # Buổi 02
 - Xây dựng giỏ hàng
 	- Định nghĩa Cart Item
+	- Thêm hàng vào giỏ
+
+
+# Buổi 03
+- Đăng nhập (password clear text, pass mã hóa tự làm)
+- 
