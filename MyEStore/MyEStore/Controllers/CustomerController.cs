@@ -48,7 +48,7 @@ namespace MyEStore.Controllers
             var claimPrincipal = new ClaimsPrincipal(claimsIdentity);
 
             await HttpContext.SignInAsync(claimPrincipal);
-            if (string.IsNullOrEmpty(ReturnUrl))
+            if (!string.IsNullOrEmpty(ReturnUrl))
             {
                 return Redirect(ReturnUrl);
             }
@@ -57,6 +57,13 @@ namespace MyEStore.Controllers
         }
 
         [Authorize]
+        public async Task<ActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return Redirect("/");
+        }
+
+            [Authorize]
         public ActionResult PurchaseOrder()
         {
             return View();

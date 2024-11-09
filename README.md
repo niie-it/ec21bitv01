@@ -16,4 +16,10 @@ Demo website TMĐT lớp 21bitv01
 
 # Buổi 03
 - Đăng nhập (password clear text, pass mã hóa tự làm)
-- 
+
+
+# Buổi 04
+- Đăng ký tài khoản paypal
+- Tạo account sandbox (Personal và Business)
+- Tạo app ứng map với tài khoản Business
+- Cấu hình ứng dụng
