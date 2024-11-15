@@ -1,41 +1,85 @@
 ﻿@model IEnumerable<MyEStore.Models.CartItem>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
 <h1>Giỏ hàng</h1>
 
-<div class="cart-table table-responsive">
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th class="pro-thumbnail">Thumbnail</th>
-				<th class="pro-title">Product</th>
-				<th class="pro-price">Price</th>
-				<th class="pro-quantity">Quantity</th>
-				<th class="pro-subtotal">Total</th>
-				<th class="pro-remove">Remove</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var item in Model)
-			{
+@if (Model.Count() > 0)
+{
+	<div class="cart-table table-responsive">
+		<table class="table table-bordered">
+			<thead>
 				<tr>
-					<td>
-						<img src="~/Hinh/HangHoa/@item.Hinh" alt="@item.TenHh" height="100" />
-					</td>
-					<td>@item.TenHh</td>
-					<td>@item.DonGia</td>
-					<td>
-						<input value="@item.SoLuong" min="0" />
-					</td>
-					<td>@item.ThanhTien</td>
-					<td>
-						<a href="#">Xóa</a>
-					</td>
+					<th class="pro-thumbnail">Thumbnail</th>
+					<th class="pro-title">Product</th>
+					<th class="pro-price">Price</th>
+					<th class="pro-quantity">Quantity</th>
+					<th class="pro-subtotal">Total</th>
+					<th class="pro-remove">Remove</th>
 				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model)
+				{
+					<tr>
+						<td>
+							<img src="~/Hinh/HangHoa/@item.Hinh" alt="@item.TenHh" height="100" />
+						</td>
+						<td>@item.TenHh</td>
+						<td>@item.DonGia</td>
+						<td>
+							<input value="@item.SoLuong" min="0" />
+						</td>
+						<td>@item.ThanhTien</td>
+						<td>
+							<a href="#">Xóa</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+	<div id="paypal-button-container" style="max-width:300px;"></div>
+	@section Scripts {
+
+	<script src="https://www.paypal.com/sdk/js?client-id=@ViewBag.PaypalClientId"></script>
+	<script>
+		paypal.Buttons({
+			style: {
+				disableMaxWidth: true
+			},
+			createOrder: (data, actions) => {
+				return fetch("/Payment/PaypalOrder", {
+					method: "post",
+				}).then((response) => {
+					if (!response.ok) {
+						return response.json().then(error => { throw error; });
+					}
+
+					return response.json();
+				}).then((order) => order.id)
+					.catch(error => alert(error.message));
+			},
+			onApprove: (data, actions) => {
+				return fetch(`/Payment/PaypalCapture?orderId=${data.orderID}`, {
+					method: "post",
+				}).then((response) => {
+					if (!response.ok) {
+						return response.json().then(error => { throw error; });
+					}
+
+					//Đổi địa chỉ tới action thông báo thành công
+					window.location.href = "/Payment/Success";
+				}).catch(error => alert(error.message));
 			}
-		</tbody>
-	</table>
-</div>
+		}).render('#paypal-button-container');
+	</script>
+	}
+
+}
+else
+{
+	<div class="text-danger">Vui lòng chọn hàng hóa để mua</div>
+}
