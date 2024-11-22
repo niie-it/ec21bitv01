@@ -13,6 +13,12 @@ namespace MyEStore.Controllers
 			_ctx = ctx;
 		}
 
+		public IActionResult Detail(int id)
+		{
+			var data = _ctx.HangHoas.SingleOrDefault(p => p.MaHh == id);
+			return View(data);
+		}
+
 		public IActionResult Index(int? category)
 		{
 			var data = _ctx.HangHoas.AsQueryable();

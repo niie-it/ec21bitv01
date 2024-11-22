@@ -1,0 +1,56 @@
+﻿@model MyEStore.Entities.HangHoa
+
+@{
+	ViewData["Title"] = "Index";
+}
+@section MyStyles {
+	<meta property="og:title" content="@Model.TenHh" />
+	<meta property="og:description" content="@Model.MoTaDonVi" />
+	<meta property="og:url" content="https://localhost:7238/Product/Detail/@Model.MaHh" />
+	<meta property="og:image" content="https://localhost:7238/Hinh/HangHoa/@Model.Hinh" />
+}
+
+<style>
+	.hh-box {
+		width: 220px;
+		height: 300px;
+		text-align: center;
+		display: inline-block;
+		margin: 5px;
+		border: 1px solid blue;
+		position: relative;
+	}
+
+	.hh-box-img {
+		width: 80%;
+		height: 80%;
+	}
+
+	.hh-box-gia {
+		position: absolute;
+		left: 5px;
+		bottom: 5px;
+		color: green;
+		font-weight: bolder;
+	}
+
+	.hh-box-name {
+		position: absolute;
+		width: 100%;
+		top: 0;
+		left: 0;
+		color: red;
+	}
+
+	.hh-box-mua {
+		position: absolute;
+		right: 5px;
+		bottom: 5px;
+	}
+</style>
+<h3 class="hh-box-name">@Model.TenHh</h3>
+<img src="~/Hinh/HangHoa/@Model.Hinh" alt="@Model.TenHh" class="hh-box-img" />
+<div class="hh-box-gia">@Model.DonGia $</div>
+<a asp-action="AddToCart"
+   asp-controller="Cart"
+   asp-route-id="@Model.MaHh" class="btn btn-primary hh-box-mua">MUA</a>
