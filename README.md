@@ -23,3 +23,16 @@ Demo website TMĐT lớp 21bitv01
 - Tạo account sandbox (Personal và Business)
 - Tạo app ứng map với tài khoản Business
 - Cấu hình ứng dụng
+
+
+# Buổi 06
+Custom meta og
+```
+<meta property="og:title" content="Tên sản phẩm" />
+<meta property="og:description" content="Mô tả sản phẩm" />
+<meta property="og:url" content="url tới sản phẩm" />
+<meta property="og:image" content="hình sản phẩm" />
+```
+
+# Buổi 07
+- URL friendly
