@@ -17,6 +17,21 @@ namespace MyEStore.Controllers
             _ctx = ctx;
         }
 
+        public FileResult ExportCSV()
+        {
+            string fileName = "customer.csv";
+            List<string> rows = new List<string>();
+            rows.Add("Email Address,First Name,Last Name,Address,Phone Number");
+
+            var dskh = _ctx.KhachHangs.Select(p => $"\"{p.Email}\",\"{p.HoTen}\",\"{p.HoTen}\",\"{p.DiaChi}\",\"{p.DienThoai}\"").ToList();
+            rows.AddRange(dskh);
+
+            byte[] fileBytes = rows.SelectMany(s =>
+           System.Text.Encoding.UTF8.GetBytes(s + Environment.NewLine)).ToArray();
+
+            return File(fileBytes, "text/csv", fileName);
+        }
+
         [HttpGet]
         public ActionResult Login()
         {
